@@ -4,6 +4,8 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 
 class IntentSurfaceReportSemanticValidatorTest {
 
@@ -213,6 +215,61 @@ class IntentSurfaceReportSemanticValidatorTest {
         val result = validator.validate(report)
         assertFalse(result.isValid)
         assertTrue(result.errors.any { it.contains("schema_id must be urn:uuid:8a69ce28-18d7-4720-b78f-1ab11cc52233") })
+    }
+
+    @Test
+    fun testValidatorRejectsCatalogSchemaVersionNotOne() {
+        val validator = IntentSurfaceReportSemanticValidator()
+        val catalog = IntentInvocationCatalog(catalog_schema_version = 2, candidate_count = 0, candidates = emptyList())
+        val report = createMinimalReport(catalog)
+        val result = validator.validate(report)
+        assertFalse(result.isValid)
+        assertTrue(result.errors.any { it.contains("catalog_schema_version must be 1") })
+    }
+
+    @Test
+    fun testValidatorRejectsInvalidGrantFlag() {
+        val validator = IntentSurfaceReportSemanticValidator()
+        val cand = createCandidate("cand.grantErr", "none", grantFlags = listOf("FLAG_GRANT_READ_URI_PERMISSION", "INVALID_GRANT_FLAG"))
+        val report = createMinimalReport(IntentInvocationCatalog(candidate_count = 1, candidates = listOf(cand)))
+        val res = validator.validate(report)
+        assertFalse(res.isValid)
+        assertTrue(res.errors.any { it.contains("Invalid grant flag") })
+    }
+
+    @Test
+    fun testValidatorRejectsInvalidSideEffectLevel() {
+        val validator = IntentSurfaceReportSemanticValidator()
+        val cand = createCandidate("cand.sideEffectErr", "none").copy(
+            safety = IntentInvocationSafety(
+                auto_launch_allowed = false,
+                requires_user_confirmation = true,
+                side_effect_level = "VERY_DANGEROUS_SIDE_EFFECT_LEVEL",
+                notes = emptyList()
+            )
+        )
+        val report = createMinimalReport(IntentInvocationCatalog(candidate_count = 1, candidates = listOf(cand)))
+        val res = validator.validate(report)
+        assertFalse(res.isValid)
+        assertTrue(res.errors.any { it.contains("side_effect_level must be one of allowed values") })
+    }
+
+    @Test
+    fun testReportSerializationConstraints() {
+        val catalog = IntentInvocationCatalog(catalog_schema_version = 1, candidate_count = 0, candidates = emptyList())
+        val report = createMinimalReport(catalog)
+        
+        val moshi = Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
+        val adapter = moshi.adapter(IntentSurfaceReport::class.java)
+        val jsonStr = adapter.toJson(report)
+        
+        assertTrue(jsonStr.contains("\"schema_id\": \"urn:uuid:8a69ce28-18d7-4720-b78f-1ab11cc52233\""))
+        assertTrue(jsonStr.contains("\"schema_version\": 5"))
+        assertTrue(jsonStr.contains("\"intent_invocation_catalog\""))
+        assertFalse(jsonStr.contains("\"report_kind\""))
+        assertFalse(jsonStr.contains("\"schema_semver\""))
+        assertFalse(jsonStr.contains("\"schema_family_id\""))
+        assertFalse(jsonStr.contains("\"catalog_kind\""))
     }
 
     @Test

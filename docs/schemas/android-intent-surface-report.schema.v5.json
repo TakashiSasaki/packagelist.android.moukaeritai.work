@@ -27,19 +27,21 @@
       "type": "string"
     },
     "generated_at_epoch_millis": {
-      "type": "integer"
+      "type": "integer",
+      "minimum": 0
     },
     "generated_at_utc": {
-      "type": "string"
+      "type": "string",
+      "format": "date-time"
     },
     "app": {
       "type": "object",
       "properties": {
         "app_package_name": { "type": "string" },
         "app_version_name": { "type": "string" },
-        "app_version_code": { "type": "integer" },
-        "target_sdk_version": { "type": "integer" },
-        "min_sdk_version": { "type": "integer" },
+        "app_version_code": { "type": "integer", "minimum": 0 },
+        "target_sdk_version": { "type": "integer", "minimum": 0 },
+        "min_sdk_version": { "type": "integer", "minimum": 0 },
         "build_type": { "type": ["string", "null"] },
         "debug_build": { "type": "boolean" },
         "installer_package_name": { "type": ["string", "null"] },
@@ -58,12 +60,13 @@
         "requested_permissions",
         "granted_permissions",
         "query_all_packages_granted"
-      ]
+      ],
+      "additionalProperties": false
     },
     "device": {
       "type": "object",
       "properties": {
-        "android_sdk_int": { "type": "integer" },
+        "android_sdk_int": { "type": "integer", "minimum": 0 },
         "android_release": { "type": "string" },
         "manufacturer": { "type": "string" },
         "brand": { "type": "string" },
@@ -73,9 +76,9 @@
         "supported_abis": { "type": "array", "items": { "type": "string" } },
         "locale": { "type": "string" },
         "time_zone": { "type": "string" },
-        "screen_width_px": { "type": "integer" },
-        "screen_height_px": { "type": "integer" },
-        "density_dpi": { "type": "integer" }
+        "screen_width_px": { "type": "integer", "minimum": 0 },
+        "screen_height_px": { "type": "integer", "minimum": 0 },
+        "density_dpi": { "type": "integer", "minimum": 0 }
       },
       "required": [
         "android_sdk_int",
@@ -91,7 +94,8 @@
         "screen_width_px",
         "screen_height_px",
         "density_dpi"
-      ]
+      ],
+      "additionalProperties": false
     },
     "package_visibility": {
       "type": "object",
@@ -108,11 +112,11 @@
         "can_query_all_packages_by_permission_check",
         "requested_permissions",
         "declared_intent_queries_hardcoded_description"
-      ]
+      ],
+      "additionalProperties": false
     },
     "intent_invocation_catalog": {
-      "type": ["object", "null"],
-      "$ref": "intent-invocation-catalog.schema.v1.json"
+      "$ref": "urn:uuid:6df4c0a0-10a1-4575-9952-4d9c4bb72c8f"
     },
     "probe_families": {
       "type": "array",
@@ -129,26 +133,26 @@
     "summary": {
       "type": "object",
       "properties": {
-        "schema": { "type": "integer" },
+        "schema": { "type": "integer", "enum": [5] },
         "run_id": { "type": "string" },
-        "probe_family_count": { "type": "integer" },
-        "probe_count": { "type": "integer" },
-        "total_candidate_rows": { "type": "integer" },
-        "unique_component_count": { "type": "integer" },
-        "unique_package_count": { "type": "integer" },
+        "probe_family_count": { "type": "integer", "minimum": 0 },
+        "probe_count": { "type": "integer", "minimum": 0 },
+        "total_candidate_rows": { "type": "integer", "minimum": 0 },
+        "unique_component_count": { "type": "integer", "minimum": 0 },
+        "unique_package_count": { "type": "integer", "minimum": 0 },
         "candidates_by_family": { "type": "object" },
         "candidates_by_probe": { "type": "object" },
         "disabled_candidates_by_family": { "type": "object" },
         "unique_components_by_family": { "type": "object" },
-        "package_target_resolvable_direct_count": { "type": "integer" },
-        "package_target_resolvable_via_resolver_count": { "type": "integer" },
-        "package_target_not_resolvable_count": { "type": "integer" },
-        "component_spec_built_count": { "type": "integer" },
-        "component_disabled_count": { "type": "integer" },
-        "component_not_exported_count": { "type": "integer" },
-        "component_requires_permission_count": { "type": "integer" },
-        "error_count": { "type": "integer" },
-        "report_duration_ms": { "type": "integer" }
+        "package_target_resolvable_direct_count": { "type": "integer", "minimum": 0 },
+        "package_target_resolvable_via_resolver_count": { "type": "integer", "minimum": 0 },
+        "package_target_not_resolvable_count": { "type": "integer", "minimum": 0 },
+        "component_spec_built_count": { "type": "integer", "minimum": 0 },
+        "component_disabled_count": { "type": "integer", "minimum": 0 },
+        "component_not_exported_count": { "type": "integer", "minimum": 0 },
+        "component_requires_permission_count": { "type": "integer", "minimum": 0 },
+        "error_count": { "type": "integer", "minimum": 0 },
+        "report_duration_ms": { "type": "integer", "minimum": 0 }
       },
       "required": [
         "schema",
@@ -171,7 +175,8 @@
         "component_requires_permission_count",
         "error_count",
         "report_duration_ms"
-      ]
+      ],
+      "additionalProperties": false
     },
     "errors": {
       "type": "array",

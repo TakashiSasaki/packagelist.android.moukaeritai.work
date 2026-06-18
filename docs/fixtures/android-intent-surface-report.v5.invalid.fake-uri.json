@@ -1,0 +1,122 @@
+{
+  "schema": 5,
+  "schema_version": 5,
+  "schema_id": "urn:uuid:8a69ce28-18d7-4720-b78f-1ab11cc52233",
+  "run_id": "fake_invalid_run_id",
+  "file_name": "android-intent-surface-report.v5.invalid.fake-uri.json",
+  "generated_at_epoch_millis": 1781251200000,
+  "generated_at_utc": "2026-06-18T00:00:00Z",
+  "app": {
+    "app_package_name": "work.moukaeritai.intent_surface_explorer",
+    "app_version_name": "0.6.1",
+    "app_version_code": 7,
+    "target_sdk_version": 34,
+    "min_sdk_version": 26,
+    "build_type": "debug",
+    "debug_build": true,
+    "installer_package_name": null,
+    "requested_permissions": [],
+    "granted_permissions": [],
+    "query_all_packages_granted": false
+  },
+  "device": {
+    "android_sdk_int": 34,
+    "android_release": "14",
+    "manufacturer": "MockManufacturer",
+    "brand": "MockBrand",
+    "model": "MockModel",
+    "device": "mock_device",
+    "product": "mock_product",
+    "supported_abis": ["arm64-v8a"],
+    "locale": "en_US",
+    "time_zone": "UTC",
+    "screen_width_px": 1080,
+    "screen_height_px": 2400,
+    "density_dpi": 440
+  },
+  "package_visibility": {
+    "visibility_config": "MOCK_EXPLICIT",
+    "query_all_packages_granted": false,
+    "can_query_all_packages_by_permission_check": false,
+    "requested_permissions": [],
+    "declared_intent_queries_hardcoded_description": "No queries declared in manifest."
+  },
+  "intent_invocation_catalog": {
+    "catalog_schema_version": 1,
+    "candidate_count": 1,
+    "candidates": [
+      {
+        "candidate_id": "cand_invalid_activity_001",
+        "source_probe_id": "probe_mock_01",
+        "source_family": "mock_family",
+        "display_label": "Rejected Activity Action",
+        "target": {
+          "package_name": "com.example.mockapp",
+          "activity_name": ".MockActivity",
+          "component_name": "com.example.mockapp/.MockActivity"
+        },
+        "intent_recipe": {
+          "targeting_mode": "COMPONENT_EXPLICIT",
+          "construction_api": "setComponent",
+          "action": "android.intent.action.VIEW",
+          "data": {
+            "set_api": "setData",
+            "uri": "content://example",
+            "uri_kind": "FILE_PROVIDER_CONTENT_URI",
+            "scheme": "content",
+            "display_redacted": "content://example",
+            "mime_type": null
+          },
+          "categories": [],
+          "extras": [],
+          "clip_data": null,
+          "flags": [],
+          "grant_flags": [],
+          "runtime_requirements": []
+        },
+        "evidence": {
+          "implicit_resolution_observed": false,
+          "implicit_evidence_status": null,
+          "implicit_probe_candidate_index": null,
+          "package_targeted_resolution_status": null,
+          "component_static_assessment": "EXPLICIT_COMPONENT_STATIC_OK",
+          "start_activity_attempted": false,
+          "launch_result": "START_ACTIVITY_NOT_TESTED"
+        },
+        "safety": {
+          "auto_launch_allowed": false,
+          "requires_user_confirmation": true,
+          "side_effect_level": "MAY_OPEN_EXTERNAL_APP",
+          "notes": ["Must fail because uri is literally 'content://example' which is a rejected fake URI placeholder."]
+        }
+      }
+    ]
+  },
+  "probe_families": [],
+  "intent_surface_probes": [],
+  "component_surface_summary": [],
+  "summary": {
+    "schema": 5,
+    "run_id": "fake_invalid_run_id",
+    "probe_family_count": 0,
+    "probe_count": 0,
+    "total_candidate_rows": 1,
+    "unique_component_count": 1,
+    "unique_package_count": 1,
+    "candidates_by_family": {},
+    "candidates_by_probe": {},
+    "disabled_candidates_by_family": {},
+    "unique_components_by_family": {},
+    "package_target_resolvable_direct_count": 0,
+    "package_target_resolvable_via_resolver_count": 0,
+    "package_target_not_resolvable_count": 0,
+    "component_spec_built_count": 1,
+    "component_disabled_count": 0,
+    "component_not_exported_count": 0,
+    "component_requires_permission_count": 0,
+    "error_count": 0,
+    "report_duration_ms": 10
+  },
+  "errors": [],
+  "events": []
+}

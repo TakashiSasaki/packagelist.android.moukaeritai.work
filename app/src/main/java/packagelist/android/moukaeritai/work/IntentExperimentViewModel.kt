@@ -110,7 +110,7 @@ class IntentExperimentViewModel : ViewModel() {
                             validationErrorCount = validationResult.errors.size,
                             validationErrorSummary = validationResult.errors.joinToString("\n"),
                             catalogCandidateCount = catalogCount,
-                            schemaVersion = report.schema
+                            schemaVersion = report.schema_version
                         )
                     }
                     return@launch
@@ -137,7 +137,7 @@ class IntentExperimentViewModel : ViewModel() {
                             validationErrorCount = validationResult.errors.size,
                             validationErrorSummary = if (validationResult.isValid) null else validationResult.errors.joinToString("\n"),
                             catalogCandidateCount = catalogCount,
-                            schemaVersion = report.schema
+                            schemaVersion = report.schema_version
                         )
                     }
                     if (andSave) {
@@ -160,7 +160,7 @@ class IntentExperimentViewModel : ViewModel() {
                             validationErrorCount = validationResult.errors.size,
                             validationErrorSummary = if (validationResult.isValid) null else validationResult.errors.joinToString("\n"),
                             catalogCandidateCount = catalogCount,
-                            schemaVersion = report.schema
+                            schemaVersion = report.schema_version
                         )
                     }
                 }

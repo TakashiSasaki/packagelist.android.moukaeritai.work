@@ -1,7 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "work.moukaeritai.intent-invocation-catalog.schema.v1",
-  "title": "Intent Invocation Catalog Schema",
+  "$id": "urn:uuid:6df4c0a0-10a1-4575-9952-4d9c4bb72c8f",
+  "title": "Intent Invocation Catalog schema v1",
+  "description": "Schema for the reusable Android Intent invocation catalog embedded in Android Intent Surface Report schema v5.",
   "type": "object",
   "properties": {
     "catalog_schema_version": {
@@ -30,13 +31,16 @@
       "type": "object",
       "properties": {
         "candidate_id": {
-          "type": "string"
+          "type": "string",
+          "minLength": 1
         },
         "source_probe_id": {
-          "type": "string"
+          "type": "string",
+          "minLength": 1
         },
         "source_family": {
-          "type": "string"
+          "type": "string",
+          "minLength": 1
         },
         "display_label": {
           "type": "string"
@@ -45,13 +49,16 @@
           "type": "object",
           "properties": {
             "package_name": {
-              "type": "string"
+              "type": "string",
+              "minLength": 1
             },
             "activity_name": {
-              "type": "string"
+              "type": "string",
+              "minLength": 1
             },
             "component_name": {
-              "type": "string"
+              "type": "string",
+              "minLength": 1
             }
           },
           "required": [
@@ -205,13 +212,24 @@
             "flags": {
               "type": "array",
               "items": {
-                "type": "string"
+                "type": "string",
+                "enum": [
+                  "FLAG_ACTIVITY_NEW_TASK",
+                  "FLAG_ACTIVITY_CLEAR_TOP",
+                  "FLAG_ACTIVITY_SINGLE_TOP"
+                ]
               }
             },
             "grant_flags": {
               "type": "array",
               "items": {
-                "type": "string"
+                "type": "string",
+                "enum": [
+                  "FLAG_GRANT_READ_URI_PERMISSION",
+                  "FLAG_GRANT_WRITE_URI_PERMISSION",
+                  "FLAG_GRANT_PERSISTABLE_URI_PERMISSION",
+                  "FLAG_GRANT_PREFIX_URI_PERMISSION"
+                ]
               }
             },
             "runtime_requirements": {
@@ -270,7 +288,13 @@
                   "grant_flags": {
                     "type": "array",
                     "items": {
-                      "type": "string"
+                      "type": "string",
+                      "enum": [
+                        "FLAG_GRANT_READ_URI_PERMISSION",
+                        "FLAG_GRANT_WRITE_URI_PERMISSION",
+                        "FLAG_GRANT_PERSISTABLE_URI_PERMISSION",
+                        "FLAG_GRANT_PREFIX_URI_PERMISSION"
+                      ]
                     }
                   },
                   "description": {
@@ -367,7 +391,15 @@
               "enum": [true]
             },
             "side_effect_level": {
-              "type": "string"
+              "type": "string",
+              "enum": [
+                "UNKNOWN",
+                "MAY_OPEN_EXTERNAL_APP",
+                "MAY_SHOW_CHOOSER",
+                "MAY_REQUIRE_INPUT",
+                "MAY_SEND_OR_SHARE_USER_CONTENT",
+                "MAY_MODIFY_EXTERNAL_STATE"
+              ]
             },
             "notes": {
               "type": "array",
