@@ -1,0 +1,6 @@
+{
+  "name": "VisiblePackageList",
+  "description": "A developer utility to inspect, display, and export visible Android packages to diagnostic CSV files.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
